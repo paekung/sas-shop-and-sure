@@ -4,7 +4,7 @@ const bodyParser = require("body-parser");
 const cheerio = require("cheerio");
 const rp = require("request-promise");
 const hbshelpers = require("handlebars-helpers");
-
+const serverless = require('serverless-http');
 const app = express();
 const port = process.env.PORT || 5000;
 const multihelpers = hbshelpers();
@@ -250,3 +250,4 @@ app.post("/verify", (req, res) => {
 });
 
 app.listen(port, () => console.log("Listening on port " + port));
+module.exports.handler = serverless(app);
