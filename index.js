@@ -4,7 +4,6 @@ const bodyParser = require("body-parser");
 const cheerio = require("cheerio");
 const rp = require("request-promise");
 const hbshelpers = require("handlebars-helpers");
-const serverless = require('serverless-http');
 const app = express();
 const port = process.env.PORT || 5000;
 const multihelpers = hbshelpers();
@@ -14,6 +13,7 @@ app.use(bodyParser.json());
 
 app.engine("hbs", exphbs.engine({extname: ".hbs", helpers: multihelpers}));
 app.set("view engine", "hbs");
+app.set('views', path.join(__dirname, "./views"));
 
 // Function - Get host name
 function getHostName(url) {
@@ -250,4 +250,3 @@ app.post("/verify", (req, res) => {
 });
 
 app.listen(port, () => console.log("Listening on port " + port));
-module.exports.handler = serverless(app);
